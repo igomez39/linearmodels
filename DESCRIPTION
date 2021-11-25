@@ -1,11 +1,10 @@
 Package: linearmodels
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Simple Linear Model
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Isabel Gomez
+Maintainer: Isabel Gomez <isgomez@umich.edu>
+Description: My own implementaion of the lm() function in R. Fits a simple linear model and also plots linear visualizations.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

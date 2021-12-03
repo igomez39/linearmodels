@@ -1,0 +1,23 @@
+---
+title: "linearModels_vignette"
+output: html_vignette
+vignette: >
+  %\vignetteIndexEntry{lineareModels_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{utf8}{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(linearModels)
+```
+
+
+
+
+To use the function `linearModels`:
+```{r setup, include=FALSE}
+linearModels(mtcars, c("wt","cyl"),"mpg")
+```
+
+

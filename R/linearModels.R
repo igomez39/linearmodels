@@ -15,18 +15,17 @@
 #' linearModels(mtcars, "mpg", "cyl")
 
 
-linearModels <- function(data,x,y) {
-  if (is.matrix(data) == FALSE && is.matrix(as.matrix(data)) == TRUE ){
-  matrix = as.matrix(data)
-  }
-  else {
-    stop("ERROR: Please input something that is convertible to a matrix")
-  }
+linearModels <- function(data,x,y, ptable = FALSE) {
   #calculating beta
   outcome = as.matrix(data[y])
-  predictors = as.matrix(data[x])
+  if (length(x) == 1){
+    predictors = as.vector(data[x])
+  }
+  else{  predictors = as.matrix(data[x])
+  }
+
   betas = cbind(rep(1,length(outcome)),predictors)
-  beta_hat = round(solve(t(betas) %*% betas) %*% t(betas) %*% outcome,2)
+  beta_hat = round(solve(t(as.matrix(betas)) %*% as.matrix(betas)) %*% t(as.matrix(betas)) %*% outcome,4)
 
   # number of columns and total sample size for df
   n = nrow(betas)
@@ -35,20 +34,20 @@ linearModels <- function(data,x,y) {
   #Calculate Residuals: MIN, 1Q,MEDIAN,3Q,MAX
 
   ## First step is to calculate the predicted values
-  predicted = betas%*%betas_r
+  predicted = as.matrix(betas)%*%beta_hat
 
   ### do predicted - actuals
   residuals = outcome - predicted
   sigma2 = t(residuals)%*%residuals/(n-p)
 
   #Variance
-  variance = diag(solve(t(betas)%*%betas))*c(sigma2)
-  standard_error = sqrt(variance)
+  variance = diag(solve(t(as.matrix(betas))%*%as.matrix(betas)))*c(as.matrix(sigma2))
+  standard_error = round(sqrt(variance),4)
   #CALCULATE T-VALUE
-  t_stat = beta_hat/standard_error
+  t_stat = round(beta_hat/standard_error,4)
 
   #CALCULATE P-VALUE
-  p_value = 2*pt(-abs(t_stat),df=n-p)
+  p_value = round(2*pt(-abs(t_stat),df=n-p),4)
 
   #MULTIPLE R-SQUARED
   ssr = sum((predicted - mean(outcome))^2)
@@ -64,24 +63,29 @@ linearModels <- function(data,x,y) {
   #P-VALUE OF F-STATISTIC
   pf(f_stat, (p-1), (n-p), lower.tail = FALSE)
 
-  print("Residuals:")
-  residuals_mat <- cbind(Min = min(residuals),
-                      "1Q" = quantile(residuals,.25),
-                      "Median" = median(residuals),
-                      "3Q" = quantile(residuals,.75),
-                      "Max" = max(residuals))
+  if (ptable == FALSE){
+    print("Residuals:")
+    residuals_mat <- cbind(Min = min(residuals),
+                        "1Q" = quantile(residuals,.25),
+                        "Median" = median(residuals),
+                        "3Q" = quantile(residuals,.75),
+                        "Max" = max(residuals))
 
-  print(residuals_mat)
+    print(residuals_mat)
 
-  print("Coefficients:")
-  output_mat <- cbind(Estimate = beta_hat,
-                      Std_Err = standard_error,
-                      "T-Statistic" = t_stat,
-                      "P-value" = p_value)
-  rownames(output_mat) <- c("(Intercept)",x)
-  colnames(output_mat) <- c("Estimate", "Std. Error", "t value", "P value")
-  print(output_mat)
+    print("Coefficients:")
+    output_mat <- cbind(Estimate = beta_hat,
+                        Std_Err = standard_error,
+                        "T-Statistic" = t_stat,
+                        "P-value" = p_value)
+    rownames(output_mat) <- c("(Intercept)",x)
+    colnames(output_mat) <- c("Estimate", "Std. Error", "t value", "P value")
+    print(output_mat)
+  }
+  else {
+    # CREATE A TABLE THAT HAS ESTIMATE (LCI-HCI), STDERROR, T-STATISTIC, P-VALUE
+
   }
 
-
+}
 

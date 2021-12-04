@@ -26,10 +26,9 @@ linearModels <- function(data,x,y) {
   outcome = as.matrix(data[y])
   predictors = as.matrix(data[x])
   betas = cbind(rep(1,length(outcome)),predictors)
-  beta_hat = solve(t(betas) %*% betas) %*% t(betas) %*% outcome
-  # Round for easier viewing
-  betas_r <- round(beta_hat, 2)
+  beta_hat = round(solve(t(betas) %*% betas) %*% t(betas) %*% outcome,2)
 
+  # number of columns and total sample size for df
   n = nrow(betas)
   p = ncol(betas)
 
@@ -75,7 +74,7 @@ linearModels <- function(data,x,y) {
   print(residuals_mat)
 
   print("Coefficients:")
-  output_mat <- cbind(Estimate = c(beta_hat),
+  output_mat <- cbind(Estimate = beta_hat,
                       Std_Err = standard_error,
                       "T-Statistic" = t_stat,
                       "P-value" = p_value)

@@ -34,16 +34,16 @@ test_that("correct t-statistic", {
   #Obtain data from mtcars
   slr1 <- linearModels(mtcars, "wt","mpg")
   slr2 <- lm(mpg ~ wt, mtcars)
-  testthat::expect_equal(slr1[,3],
-                         round(summary(slr2)$coefficients[, 3],4))
+  testthat::expect_equal(round(slr1[,3],3),
+                         round(summary(slr2)$coefficients[, 3],3))
 })
 
 test_that("correct t-statistic", {
   #Obtain data from mtcars
   mlr1 <- linearModels(mtcars, c("wt","cyl"),"mpg")
   mlr2 <- lm(mpg ~ wt + cyl, mtcars)
-  testthat::expect_equal(mlr1[,3],
-                         round(summary(mlr2)$coefficients[, 3],4))
+  testthat::expect_equal(round(mlr1[,3],3),
+                         round(summary(mlr2)$coefficients[, 3],3))
 })
 
 

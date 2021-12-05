@@ -1,6 +1,6 @@
 ---
 title: "linearModel_vignette"
-output: html_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\vignetteIndexEntry{linearModel_vignette}
   %\VignetteEngine{knitr::rmarkdown}

@@ -1,20 +1,21 @@
 ---
-title: "linearModel_vignette"
+title: "my-vignette"
 output: rmarkdown::html_vignette
 vignette: >
-  %\vignetteIndexEntry{linearModel_vignette}
+  %\VignetteIndexEntry{my-vignette}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(linearModels)
-library(bench)
+#library(bench)
 ```
 
 
+## Simple Linear Regression
 
 To use the function `linearModels`. Here we have an example of fitting a  simple linear regression model estimating the miles per gallon of a car based off the weight :
 ```{r, include=FALSE}
@@ -40,12 +41,11 @@ all.equal(mlr1[,1], round(mlr2$coefficients,digits = 4))
 ```
 
 
-Below we are benchamrking the time linearModels takes to run in comparison to the original lm function.
+Below we are benchmarking the time linearModels takes to run in comparison to the original lm function.
 ```{r}
-mark(linearModels(mtcars,c("wt","cyl"),"mpg"))
+#mark(linearModels(mtcars,c("wt","cyl"),"mpg"))
 ```
 
 ```{r}
-mark(lm(mpg ~ wt + cyl, mtcars))
+#mark(lm(mpg ~ wt + cyl, mtcars))
 ```
-

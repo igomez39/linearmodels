@@ -9,3 +9,5 @@
 
 
 BIO 625 HW4: Creating own R package
+
+This R package mimics the work of both the anova() and lm () function. The user is able to input data they would like a linear fit of. The function then calculates the model coefficients, the sums of squares and the test-statistics with the associated p-value. 

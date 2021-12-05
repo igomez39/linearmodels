@@ -1,0 +1,46 @@
+---
+title: "linearModels_vignette"
+output: html_vignette
+vignette: >
+  %\vignetteIndexEntry{lineareModels_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{utf8}{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(linearModels)
+```
+
+
+
+To use the function `linearModels`. Here we have an example of fitting a  simple linear regression model estimating the miles per gallon of a car based off the weight :
+```{r setup, include=FALSE}
+linearModels(mtcars, "wt","mpg")
+```
+
+
+
+
+
+To use the function `linearModels`. Here we have an example of fitting a  multiple linear regression model estimating the miles per gallon of a car based off the weight and number of cylinders of the car. Note: if fitting more than one predictor write predictor names in vector form  :
+```{r setup, include=FALSE}
+linearModels(mtcars, c("wt","cyl"),"mpg")
+```
+
+
+
+
+```{r}
+all.equal(linearModels(mtcars, c("wt","cyl"),"mpg"), lm(mpg ~ wt + cyl, mtcars))
+```
+
+
+```{r}
+mark(linearModels(mtcars, c("wt","cyl"),"mpg"))
+```
+
+```{r}
+mark(lm(mpg ~ wt + cyl, mtcars))
+```
+

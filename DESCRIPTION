@@ -1,11 +1,17 @@
-Package: linearmodels
+Package: linearModels
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Simple Linear Model
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Isabel Gomez
+Maintainer: Isabel Gomez <isgomez@umich.edu>
+Description: My own implementaion of the lm() function in R. Fits a simple linear model and also plots linear visualizations.
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

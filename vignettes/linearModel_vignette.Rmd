@@ -1,11 +1,12 @@
 ---
 title: "linearModel_vignette"
-output: html_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\vignetteIndexEntry{linearModel_vignette}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

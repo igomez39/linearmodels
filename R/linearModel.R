@@ -52,6 +52,7 @@ linearModels <- function(data,x,y) {
   #MULTIPLE R-SQUARED
   ssr = sum((predicted - mean(outcome))^2)
   sst = sum((outcome - mean(outcome))^2)
+  sse =t(residuals)%*%residuals
   r_square = ssr/sst
 
   #ADJUSTED
@@ -61,7 +62,7 @@ linearModels <- function(data,x,y) {
   f_stat = (r_square/(1-r_square)) * ((n-p)/(p-1))
 
   #P-VALUE OF F-STATISTIC
-  pf(f_stat, (p-1), (n-p), lower.tail = FALSE)
+  f_p_value = pf(f_stat, (p-1), (n-p), lower.tail = FALSE)
 
     print("Residuals:")
     residuals_mat <- cbind(Min = min(residuals),
@@ -80,7 +81,23 @@ linearModels <- function(data,x,y) {
     rownames(output_mat) <- c("(Intercept)",x)
     colnames(output_mat) <- c("Estimate", "Std. Error", "t value", "P value")
     print(output_mat)
+    print("R-Square Adjusted")
+    print(r_square_adjusted)
+    f_matrix <- cbind("F Statistic" = f_stat,
+                        "P-value" = f_p_value)
+    print(f_matrix)
 
+    #ANOVA TABLE
+    anova_info <- cbind("Sum Sq" = c(ssr,sst,sse),
+                        "Degrees of Freedom" = c(p, n-p, n))
+    rownames(anova_info) <- c("SSR","SSE","SST")
+    print("Sum of Squares Information")
+    print(anova_info)
 
 }
+
+
+
+
+
 
